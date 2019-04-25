@@ -14,4 +14,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\LambdaForum.Data\LambdaForum.Data.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LambdaForum.Web.Data.Migrations
+namespace LambdaForum.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {
