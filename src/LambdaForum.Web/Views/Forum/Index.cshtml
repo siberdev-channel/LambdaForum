@@ -1,0 +1,26 @@
+﻿@model LambdaForum.Web.ViewModels.ForumIndexViewModel;
+
+<h1 class="display-4">Forums</h1>
+
+@if (Model.ForumList.Any())
+{
+<table class="table table-hover" id="ForumIndex">
+    <tbody>
+        @foreach (var forum in Model.ForumList)
+        {
+            <tr>
+                <td>
+                    @forum.Title;
+                </td>
+                <td>
+                    @forum.Description;
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+    <p>No forums</p>
+}

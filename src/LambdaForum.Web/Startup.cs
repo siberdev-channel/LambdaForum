@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LambdaForum.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LambdaForum.Service;
 
 namespace LambdaForum.Web
 {
@@ -34,6 +35,8 @@ namespace LambdaForum.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IForumService, ForumService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
