@@ -20,10 +20,10 @@ namespace LambdaForum.Web.Controllers
             var forums = (await _forumService.ReadAll().ConfigureAwait(false))
                 .Select(f => new ForumListViewModel
                 {
-                    Id          = f.Id,
-                    Title       = f.Title,
+                    Id = f.Id,
+                    Title = f.Title,
                     Description = f.Description
-                });
+                }).ToList();
             var model = new ForumIndexViewModel { ForumList = forums };
             return base.View(model);
         }
