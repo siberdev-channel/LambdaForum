@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LambdaForum.Data;
 using LambdaForum.Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +14,21 @@ namespace LambdaForum.Service
     public class ForumService : IForumService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ForumService(ApplicationDbContext context) => _context = context;
+        public ForumService(ApplicationDbContext context, IMapper mapper)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper  = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        }
 
         public async Task<IEnumerable<Forum>> ReadAll() =>
             await _context.Forums.ToListAsync();
+
+        //public async Task<IEnumerable<T>> ReadAll<T>() =>
+        //    (await _context.Forums.ToListAsync()).Select(f => _mapper.Map<T>(f)).ToList();
+        public async Task<IEnumerable<T>> ReadAll<T>() =>
+            await Task.Run(() => _mapper.ProjectTo<T>(_context.Forums));
 
         public async Task Create(Forum forum)
         {

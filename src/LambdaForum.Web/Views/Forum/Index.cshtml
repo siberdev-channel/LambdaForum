@@ -2,15 +2,15 @@
 
 <h1 class="display-4">Forums</h1>
 
-@if (Model.ForumList.Any())
-{
 <table class="table table-hover" id="ForumIndex">
     <tbody>
         @foreach (var forum in Model.ForumList)
         {
             <tr>
                 <td>
-                    @forum.Title
+                    <a asp-controller="Forum" asp-action="Topic" asp-route-id="@forum.Id">
+                        @forum.Title
+                    </a>
                 </td>
                 <td>
                     @forum.Description
@@ -19,8 +19,3 @@
         }
     </tbody>
 </table>
-}
-else
-{
-    <p>Create your first forum</p>
-}

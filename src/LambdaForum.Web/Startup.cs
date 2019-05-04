@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LambdaForum.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LambdaForum.Data;
 using LambdaForum.Service;
+using AutoMapper;
+using LambdaForum.Domain.Models;
 
 namespace LambdaForum.Web
 {
@@ -37,6 +39,8 @@ namespace LambdaForum.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<IForumService, ForumService>();
+
+            services.AddAutoMapper(GetType().Assembly, typeof(Forum).Assembly);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

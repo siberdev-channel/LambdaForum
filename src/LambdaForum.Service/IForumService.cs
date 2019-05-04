@@ -10,6 +10,7 @@ namespace LambdaForum.Service
         Task Delete(int id);
         Task<Forum> Read(int id);
         Task<IEnumerable<Forum>> ReadAll();
+        Task<IEnumerable<T>> ReadAll<T>();
         Task Update(Forum forum);
     }
 }

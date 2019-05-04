@@ -1,37 +1,36 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LambdaForum.Service;
 using LambdaForum.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+#pragma warning disable RCS1090 // Call 'ConfigureAwait(false)'.
+
 namespace LambdaForum.Web.Controllers
 {
+    //[Authorize]
     public class ForumController : Controller
     {
-        private readonly IForumService _forumService;
+        private readonly IForumService _forums;
 
         public ForumController(IForumService forumService) =>
-            _forumService = forumService;
+            _forums = forumService ?? throw new ArgumentNullException(nameof(forumService));
 
         // GET: Forum
-        public async Task<IActionResult> Index()
-        {
-            var forums = (await _forumService.ReadAll().ConfigureAwait(false))
-                .Select(f => new ForumListViewModel
-                {
-                    Id = f.Id,
-                    Title = f.Title,
-                    Description = f.Description
-                }).ToList();
-            var model = new ForumIndexViewModel { ForumList = forums };
-            return base.View(model);
-        }
+        public async Task<IActionResult> Index() =>
+            View(new ForumIndexViewModel
+            {
+                ForumList = await _forums.ReadAll<ForumListViewModel>()
+            });
 
-        // GET: Forum/Details/5
-        public ActionResult Details(int id)
+        // GET: Forum/Topic/5
+        public ActionResult Topic(int id)
         {
-            return View();
+            return base.View(id);
         }
 
         // GET: Forum/Create
@@ -104,3 +103,5 @@ namespace LambdaForum.Web.Controllers
         }
     }
 }
+
+#pragma warning restore RCS1090 // Call 'ConfigureAwait(false)'.
