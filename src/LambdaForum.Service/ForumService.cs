@@ -38,7 +38,13 @@ namespace LambdaForum.Service
         }
 
         public async Task<Forum> Read(int id) =>
-            await _context.Forums.Include(f => f.Posts).FirstAsync(f => f.Id == id);
+            await _context.Forums
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.User)
+                .Include(f => f.Posts)
+                    .ThenInclude(p => p.Replies)
+                        .ThenInclude(r => r.User)
+                .FirstAsync(f => f.Id == id);
 
         public async Task Update(Forum forum)
         {

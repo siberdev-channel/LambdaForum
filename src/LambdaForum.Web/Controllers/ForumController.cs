@@ -28,9 +28,9 @@ namespace LambdaForum.Web.Controllers
             });
 
         // GET: Forum/Topic/5
-        public ActionResult Topic(int id)
+        public async Task<ActionResult> Topic(int id)
         {
-            return base.View(id);
+            return base.View(await _forums.Read(id));
         }
 
         // GET: Forum/Create
